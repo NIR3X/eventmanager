@@ -13,7 +13,7 @@ func TestEventManager(t *testing.T) {
 	counter := 0
 
 	// Add a new event handler for the "example_event" event.
-	handlerID := eventManager.AddHandler("example_event", func(data interface{}) {
+	handlerId := eventManager.AddHandler("example_event", func(data interface{}) {
 		// Increment the counter when the event is triggered.
 		*data.(*int)++
 	})
@@ -27,7 +27,7 @@ func TestEventManager(t *testing.T) {
 	}
 
 	// Remove the previously added event handler.
-	eventManager.RemoveHandler("example_event", handlerID)
+	eventManager.RemoveHandler("example_event", handlerId)
 
 	// Trigger the "example_event" event again after removing the handler.
 	eventManager.TriggerEvent("example_event", &counter)

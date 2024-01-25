@@ -29,15 +29,15 @@ func main() {
 	em := eventmanager.NewEventManager()
 
 	// Add an event handler for "example_event".
-	handlerID := em.AddHandler("example_event", func(data interface{}) {
+	handlerId := em.AddHandler("example_event", func(data interface{}) {
 		fmt.Printf("Received event: example_event, Data: %v\n", data)
 	})
 
 	// Trigger the "example_event" event.
 	em.TriggerEvent("example_event", "Hello, world!")
 
-	// Remove the event handler using the handler ID.
-	em.RemoveHandler("example_event", handlerID)
+	// Remove the event handler using the handler Id.
+	em.RemoveHandler("example_event", handlerId)
 
 	// Trigger the event again to verify removal.
 	em.TriggerEvent("example_event", "Hello again!")

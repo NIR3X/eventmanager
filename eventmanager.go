@@ -11,35 +11,35 @@ type EventHandler func(interface{})
 type EventManager struct {
 	mutex    sync.RWMutex
 	handlers map[string]map[int64]EventHandler
-	nextID   int64
+	nextId   int64
 }
 
 // NewEventManager creates a new instance of EventManager.
 func NewEventManager() *EventManager {
 	return &EventManager{
 		handlers: make(map[string]map[int64]EventHandler),
-		nextID:   1,
+		nextId:   1,
 	}
 }
 
-// AddHandler adds an event handler for the specified event and returns the handler ID.
+// AddHandler adds an event handler for the specified event and returns the handler Id.
 func (em *EventManager) AddHandler(event string, handler EventHandler) int64 {
 	em.mutex.Lock()
 	defer em.mutex.Unlock()
 
-	handlerID := em.nextID
-	em.nextID++
+	handlerId := em.nextId
+	em.nextId++
 
 	if em.handlers[event] == nil {
 		em.handlers[event] = make(map[int64]EventHandler)
 	}
-	em.handlers[event][handlerID] = handler
+	em.handlers[event][handlerId] = handler
 
-	return handlerID
+	return handlerId
 }
 
-// RemoveHandler removes an event handler for the specified event and handler ID.
-func (em *EventManager) RemoveHandler(event string, handlerID int64) {
+// RemoveHandler removes an event handler for the specified event and handler Id.
+func (em *EventManager) RemoveHandler(event string, handlerId int64) {
 	em.mutex.Lock()
 	defer em.mutex.Unlock()
 
@@ -48,7 +48,7 @@ func (em *EventManager) RemoveHandler(event string, handlerID int64) {
 		return
 	}
 
-	delete(handlers, handlerID)
+	delete(handlers, handlerId)
 
 	// Remove the map entry if there are no more handlers for the event
 	if len(handlers) == 0 {
